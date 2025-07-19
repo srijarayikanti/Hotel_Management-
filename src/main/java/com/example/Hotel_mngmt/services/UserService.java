@@ -9,4 +9,6 @@ public interface UserService {
    // ResponseEntity<User> saveUser(User user);
 
     ResponseEntity<User> saveUser(RequestUser request);
+
+    ResponseEntity<User> FetchUserByName(String userName);
 }

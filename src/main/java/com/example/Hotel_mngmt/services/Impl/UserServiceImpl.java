@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
@@ -21,6 +23,14 @@ public class UserServiceImpl implements UserService {
         user1.setPassword(request.getPassword());
         user1.setRole(request.getRole());
         return ResponseEntity.ok(userRepository.save(user1));
+    }
+    @Override
+    public ResponseEntity<User> FetchUserByName(String userName){
+        Optional<User> user= userRepository.findByuserName(userName);
+        if (user.isEmpty()){
+            throw new RuntimeException("user not found by userName");
+        }
+        return ResponseEntity.ok(user.get());
     }
 
 

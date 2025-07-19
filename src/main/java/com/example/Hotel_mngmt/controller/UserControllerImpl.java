@@ -18,5 +18,9 @@ public class UserControllerImpl implements UserController{
     public ResponseEntity<User> saveUser(RequestUser request){
         return userService.saveUser(request);
     }
+    @Override
+    public ResponseEntity<User> FetchUserByName(String userName){
+        return userService.FetchUserByName(userName);
+    }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserController {
     @Operation(
@@ -34,4 +35,22 @@ public interface UserController {
             consumes = "application/json"
     )
     ResponseEntity<User> saveUser(@RequestBody RequestUser request);
+    @Operation(
+            summary="FetchUserByName",
+            operationId="FetchUserByName",
+            tags="FetchUserByName",
+            responses = {
+                    @ApiResponse(responseCode = "200",description = "User Fetched successfully",content=@Content(mediaType ="application/json",
+                            schema = @Schema(implementation = User.class))),
+                    @ApiResponse(responseCode = "401",description = "Error occurred",content=@Content(mediaType ="application/json",
+                            schema = @Schema(implementation = User.class)))
+
+            }
+    )
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "/auth/FetchUserByName",
+            produces = "application/json"
+    )
+    ResponseEntity<User> FetchUserByName(@RequestParam String userName);
 }
