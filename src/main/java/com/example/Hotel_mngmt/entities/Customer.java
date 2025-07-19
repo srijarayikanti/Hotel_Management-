@@ -10,8 +10,8 @@ import java.io.Serializable;
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
-    private int id;
+    @Column(name = "CustomerId")
+    private int customerId;
     @Column(name = "Name")
     private String name;
     @Column(name = "Phone")
