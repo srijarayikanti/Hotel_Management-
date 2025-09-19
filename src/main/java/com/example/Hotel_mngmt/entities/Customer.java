@@ -6,12 +6,12 @@ import lombok.Data;
 import java.io.Serializable;
 @Entity
 @Data
-@Table
+@Table(name = "customer")
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CustomerId")
-    private int customerId;
+    @Column(name = "Customer_id")
+    private int customer_id;
     @Column(name = "Name")
     private String name;
     @Column(name = "Phone")
@@ -20,6 +20,6 @@ public class Customer implements Serializable {
     private String email;
     @Column(name = "Address")
     private String address;
-    @Column(name = "IdProof")
-    private String idProof;
+    @Column(name = "Id_proof")
+    private String id_proof;
 }

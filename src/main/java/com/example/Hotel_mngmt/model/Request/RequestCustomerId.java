@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class RequestCustomerId {
-    private int customerId;
+    private int customer_id;
 }

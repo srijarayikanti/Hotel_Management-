@@ -25,22 +25,24 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public ResponseEntity<?> saveCustomer(RequestCustomer requestCustomer) {
-        List<Customer> customer = new ArrayList<>();
-        if (requestCustomer.getCustomerId() == 0) {
-            BeanUtils.copyProperties(requestCustomer, customer);
+        Customer customer;
+        if (requestCustomer.getCustomer_id() == 0) {
+            customer = new Customer();
         } else {
-            Optional<Customer> customerOpt = customerRepository.findById(requestCustomer.getCustomerId());
-            BeanUtils.copyProperties(requestCustomer, customer);
+            customer = customerRepository.findById(requestCustomer.getCustomer_id())
+                    .orElse(new Customer());
         }
+        BeanUtils.copyProperties(requestCustomer, customer, "customer_id");
+        Customer savedCustomer = customerRepository.save(customer);
         ResponseCustomer responseCustomer = new ResponseCustomer();
-        responseCustomer.setCustomerId(requestCustomer.getCustomerId());
-        responseCustomer.setName(requestCustomer.getName());
+        responseCustomer.setCustomerId(savedCustomer.getCustomer_id());
+        responseCustomer.setName(savedCustomer.getName());
         return ResponseEntity.ok(responseCustomer);
     }
 
     @Override
     public ResponseEntity<RequestCustomer> fetchCustomerDetails(RequestCustomerId request) {
-        Optional<Customer> customer=customerRepository.findById(request.getCustomerId());
+        Optional<Customer> customer=customerRepository.findById(request.getCustomer_id());
                 //.orElseThrow(new RuntimeException("find"));
         if(customer.isEmpty()){
             throw new RuntimeException("find");
