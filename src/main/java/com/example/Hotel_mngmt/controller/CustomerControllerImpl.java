@@ -1,6 +1,7 @@
 package com.example.Hotel_mngmt.controller;
 
 import com.example.Hotel_mngmt.model.Request.RequestCustomer;
+import com.example.Hotel_mngmt.model.Request.RequestCustomerId;
 import com.example.Hotel_mngmt.services.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,16 @@ public class CustomerControllerImpl implements CustomerController{
         log.debug("CustomerControllerImpl: saveCustomer");
         try {
             ResponseEntity<?> response=customerService.saveCustomer(requestCustomer);
+            return response;
+        } catch (Exception e) {
+            log.debug("CustomerControllerImpl: ErrorException");
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public ResponseEntity<?> fetchCustomerDetails(RequestCustomerId request){
+        try {
+            ResponseEntity<?> response=customerService.fetchCustomerDetails(request);
             return response;
         } catch (Exception e) {
             log.debug("CustomerControllerImpl: ErrorException");

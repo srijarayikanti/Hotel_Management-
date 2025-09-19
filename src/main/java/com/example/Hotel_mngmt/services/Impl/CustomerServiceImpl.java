@@ -7,6 +7,7 @@ import com.example.Hotel_mngmt.model.Request.RequestCustomerId;
 import com.example.Hotel_mngmt.model.Response.ResponseCustomer;
 import com.example.Hotel_mngmt.services.CustomerService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +38,16 @@ public class CustomerServiceImpl implements CustomerService {
         return ResponseEntity.ok(responseCustomer);
     }
 
-//    public ResponseEntity<RequestCustomer> fetchCustomerDetails(RequestCustomerId request) {
-//
-//    }
+    @Override
+    public ResponseEntity<RequestCustomer> fetchCustomerDetails(RequestCustomerId request) {
+        Optional<Customer> customer=customerRepository.findById(request.getCustomerId());
+                //.orElseThrow(new RuntimeException("find"));
+        if(customer.isEmpty()){
+            throw new RuntimeException("find");
+        }
+        RequestCustomer customer1=new RequestCustomer();
+        BeanUtils.copyProperties(customer.get(),customer1);
+        return new ResponseEntity<>(customer1, HttpStatus.OK);
+    }
 }
 
