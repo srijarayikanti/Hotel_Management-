@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class RequestCustomerId {
     private int customer_id;
+    private int customerFamilyId;
 }

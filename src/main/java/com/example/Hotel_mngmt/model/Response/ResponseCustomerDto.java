@@ -1,11 +1,9 @@
-package com.example.Hotel_mngmt.model.Request;
+package com.example.Hotel_mngmt.model.Response;
 
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
-public class RequestCustomer implements Serializable {
+public class ResponseCustomerDto {
     private int customer_id;
     private int customerFamilyId;
     private String name;
