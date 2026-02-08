@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +37,7 @@ public interface CustomerController {
             produces = "application/json",
             consumes = "application/json"
     )
+    @CrossOrigin
     ResponseEntity<List<ResponseCustomer>> saveCustomerList(@RequestBody List<RequestCustomer> requestCustomer);
 
     @Operation(
@@ -58,8 +60,8 @@ public interface CustomerController {
     ResponseEntity<?> fetchCustomerDetails(@RequestBody RequestCustomerId request);
 
     @Operation(
-            summary="fetchCustomerDetails",
-            operationId="fetchCustomerDetails",
+            summary="fetchCustomerFamilyDetails",
+            operationId="fetchCustomerFamilyDetails",
             tags="Customer",
             responses = {
                     @ApiResponse(responseCode = "200",description = "saveCustomer saved successfully",content=@Content(mediaType ="application/json",
