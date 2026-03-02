@@ -83,7 +83,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<ResponseCustomerDto> responseCustomerDtoList=new ArrayList<>();
         for(Customer customer1:customer){
             ResponseCustomerDto responseCustomerDto1=new ResponseCustomerDto();
-            BeanUtils.copyProperties(customer,responseCustomerDto1);
+            BeanUtils.copyProperties(customer1,responseCustomerDto1);
             responseCustomerDtoList.add(responseCustomerDto1);
         }
         return new ResponseEntity<>(responseCustomerDtoList,HttpStatus.OK);
