@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>Save Customer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #e3f2fd, #ffffff);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 500px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+        button {
+            width: 48%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:first-of-type {
+            background-color: #28a745;
+            color: white;
+        }
+
+        button:first-of-type:hover {
+            background-color: #218838;
+        }
+
+        button:last-of-type {
+            background-color: #007bff;
+            color: white;
+            float: right;
+        }
+
+        button:last-of-type:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 90%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background-color: #f1f9ff;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+<h2>Customer Form</h2>
+
+<input type="hidden" id="customer_id" value="0">
+<label for="customerFamilyId"></label><input type="number" id="customerFamilyId" placeholder="Customer Family ID"><br><br>
+<label for="name"></label><input type="text" id="name" placeholder="Name"><br><br>
+<label for="phone"></label><input type="text" id="phone" placeholder="Phone"><br><br>
+<label for="email"></label><input type="email" id="email" placeholder="Email"><br><br>
+<label for="address"></label><input type="text" id="address" placeholder="Address"><br><br>
+<label for="id_proof"></label><input type="text" id="id_proof" placeholder="ID Proof"><br><br>
+
+<button onclick="saveCustomer()">Save Customer</button>
+<button onclick="fetchCustomer()">Fetch Customer</button>
+</div>
+<h3>Customer Family Details</h3>
+
+<table border="1" id="customerTable" style="margin-top:20px; width:100%; display:none;">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Family ID</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>ID Proof</th>
+    </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+</table>
+<script>
+    function saveCustomer() {
+
+        const customer = {
+            customer_id: Number(document.getElementById("customer_id").value),
+            customerFamilyId: Number(document.getElementById("customerFamilyId").value),
+            name: document.getElementById("name").value,
+            phone: document.getElementById("phone").value,
+            email: document.getElementById("email").value,
+            address: document.getElementById("address").value,
+            id_proof: document.getElementById("id_proof").value
+        };
+
+        // API EXPECTS LIST
+        const requestBody = [customer];
+
+        fetch("http://localhost:8081/auth/saveCustomer", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestBody)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Customer saved successfully!");
+            console.log("Response:", data);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Failed to save customer");
+        });
+    }
+    function fetchCustomer(){
+
+    const requestBody = {
+        customerFamilyId: Number(document.getElementById("customerFamilyId").value)
+    };
+
+    fetch("http://localhost:8081/auth/fetchCustomerFamilyDetails", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("No family details found");
+        }
+        return response.json();
+    })
+    .then(data => {
+
+        const table = document.getElementById("customerTable");
+        const tableBody = document.getElementById("tableBody");
+
+        tableBody.innerHTML = ""; // clear old rows
+
+        data.forEach(customer => {
+
+            const row = `
+                <tr>
+                    <td>${customer.customerId}</td>
+                    <td>${customer.customerFamilyId}</td>
+                    <td>${customer.name}</td>
+                    <td>${customer.phone}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.address}</td>
+                    <td>${customer.id_proof}</td>
+                </tr>
+            `;
+
+            tableBody.innerHTML += row;
+        });
+
+        table.style.display = "table";
+
+    })
+    .catch(error => {
+        alert(error.message);
+    });
+}
+</script>
+
+</body>
+</html>

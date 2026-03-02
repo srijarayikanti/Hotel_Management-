@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Management System</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 40px;
+        }
+
+        header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .card {
+            display: inline-block;
+            background: white;
+            color: #333;
+            width: 250px;
+            margin: 20px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #2a5298;
+        }
+
+        .card button {
+            margin-top: 15px;
+            padding: 8px 15px;
+            border: none;
+            background-color: #2a5298;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .card button:hover {
+            background-color: #1e3c72;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Hotel Management System</h1>
+    <p>Manage Customers, Rooms, and Reservations Easily</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h3>User Management</h3>
+        <p>Add, View, and Manage Users</p>
+        <button onclick="location.href='user.html'">Open</button>
+    </div>
+
+    <div class="card">
+        <h3>Customer Management</h3>
+        <p>Add, View, and Manage Customers</p>
+        <button onclick="location.href='customer.html'">Open</button>
+    </div>
+
+    <div class="card">
+        <h3>Room Management</h3>
+        <p>Manage Room Availability & Details</p>
+        <button>Coming Soon</button>
+    </div>
+
+    <div class="card">
+        <h3>Reservations</h3>
+        <p>Book and Track Reservations</p>
+        <button>Coming Soon</button>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Hotel Management | Developed by Srija Rayikanti
+</footer>
+
+</body>
+</html>
